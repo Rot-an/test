@@ -1,4 +1,4 @@
-void LCD_Init(void)
+void LCD_Init0000000000000000000000000000000000000(void)
 { 
 LCD_CS_OUT = 0;
 
@@ -559,11 +559,11 @@ void Set_LCD_SCREEN_MODE(uchar mode)
 	Write(Command , 0x36);     //BGR
 	if(mode==0)
 	{
-		Write (Parameter  ,0xC8);   //(0xC0或者0x00)|(0x08或者0x00)
+		Write (Parameter  ,0xC8);   //(0xC0禄貌脮脽0x00)|(0x08禄貌脮脽0x00)
 	}
 	else if(mode==1)
 	{
-		Write (Parameter  ,0x08);   //(0xC0或者0x00)|(0x08或者0x00)
+		Write (Parameter  ,0x08);   //(0xC0禄貌脮脽0x00)|(0x08禄貌脮脽0x00)
 	}
 	else if(mode==2)
 	{
@@ -602,11 +602,11 @@ void Set_LCD_SCREEN_MODE(uchar mode)
 	Write(Command , 0x36);	   //BGR
 	if(mode==0)
 	{
-		Write (Parameter  ,0x08);	//(0xC0或者0x00)|(0x08或者0x00)
+		Write (Parameter  ,0x08);	//(0xC0禄貌脮脽0x00)|(0x08禄貌脮脽0x00)
 	}
 	else if(mode==1)
 	{
-		Write (Parameter  ,0xC8);	//(0xC0或者0x00)|(0x08或者0x00)
+		Write (Parameter  ,0xC8);	//(0xC0禄貌脮脽0x00)|(0x08禄貌脮脽0x00)
 	}
 	else if(mode==2)
 	{
