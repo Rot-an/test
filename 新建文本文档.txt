@@ -1,0 +1,621 @@
+void LCD_Init(void)
+{ 
+LCD_CS_OUT = 0;
+
+
+delay_ms(5);
+
+LCD_RESET();
+
+#if OLD_SCREEN==1 
+LCD_WR_REG(0x11);
+delay_ms(5);
+
+LCD_WR_REG(0xB1);     
+LCD_WR_DATA(0x05);   
+LCD_WR_DATA(0x3C);   
+LCD_WR_DATA(0x3C);   
+
+LCD_WR_REG(0xB2);     
+LCD_WR_DATA(0x05);   
+LCD_WR_DATA(0x3C);   
+LCD_WR_DATA(0x3C);   
+
+LCD_WR_REG(0xB3);     
+LCD_WR_DATA(0x05);   
+LCD_WR_DATA(0x3C);   
+LCD_WR_DATA(0x3C);   
+LCD_WR_DATA(0x05);   
+LCD_WR_DATA(0x3C);   
+LCD_WR_DATA(0x3C);   
+
+LCD_WR_REG(0xB4);     //Dot inversion
+LCD_WR_DATA(0x03);   
+
+LCD_WR_REG(0xC0);     
+LCD_WR_DATA(0x0E);   
+LCD_WR_DATA(0x0E);   
+LCD_WR_DATA(0x04);   
+
+LCD_WR_REG(0xC1);     
+LCD_WR_DATA(0xC5);   
+
+LCD_WR_REG(0xC2);     
+LCD_WR_DATA(0x0d);   
+LCD_WR_DATA(0x00);   
+
+LCD_WR_REG(0xC3);     
+LCD_WR_DATA(0x8D);   
+LCD_WR_DATA(0x2A);   
+
+LCD_WR_REG(0xC4);     
+LCD_WR_DATA(0x8D);   
+LCD_WR_DATA(0xEE);   
+
+LCD_WR_REG(0xC5);     //VCOM
+LCD_WR_DATA(0x06); //1D  .06
+
+
+Set_LCD_SCREEN_MODE(Sys.Flag.OLED_LEFT_RIGHT);
+
+
+
+LCD_WR_REG(0x3A);     
+LCD_WR_DATA(0x55);   	
+
+  
+LCD_WR_REG(0xE0);     
+LCD_WR_DATA(0x0b);   
+LCD_WR_DATA(0x17);   
+LCD_WR_DATA(0x0a);   
+LCD_WR_DATA(0x0d);   
+LCD_WR_DATA(0x1a);   
+LCD_WR_DATA(0x19);   
+LCD_WR_DATA(0x16);   
+LCD_WR_DATA(0x1d);   
+LCD_WR_DATA(0x21);   
+LCD_WR_DATA(0x26);   
+LCD_WR_DATA(0x37);   
+LCD_WR_DATA(0x3c);   
+LCD_WR_DATA(0x00);   
+LCD_WR_DATA(0x09);   
+LCD_WR_DATA(0x05);   
+LCD_WR_DATA(0x10);   
+
+LCD_WR_REG(0xE1);     
+LCD_WR_DATA(0x0c);   
+LCD_WR_DATA(0x19);   
+LCD_WR_DATA(0x09);   
+LCD_WR_DATA(0x0d);   
+LCD_WR_DATA(0x1b);   
+LCD_WR_DATA(0x19);   
+LCD_WR_DATA(0x15);   
+LCD_WR_DATA(0x1d);   
+LCD_WR_DATA(0x21);   
+LCD_WR_DATA(0x26);   
+LCD_WR_DATA(0x39);   
+LCD_WR_DATA(0x3E);   
+LCD_WR_DATA(0x00);   
+LCD_WR_DATA(0x09);   
+LCD_WR_DATA(0x05);   
+LCD_WR_DATA(0x10);
+
+if(Sys.Flag.OLED_LEFT_RIGHT<2)
+{
+	TFT_Clear_Color(0, 79, 0, 159, 0);
+}
+else
+{
+	TFT_Clear_Color(0, 159, 0, 79, 0);
+}
+
+LCD_WR_REG(0x29); //display on
+
+
+#elif OLD_SCREEN==2 
+
+Write(Command , 0x11);     //Sleep out
+delay_ms(5);//Delay(120);                //Delay 120ms
+Write(Command , 0xB1);     //Normal mode
+Write(Parameter , 0x05);   
+Write(Parameter , 0x3C);   
+Write(Parameter , 0x3C);   
+Write(Command , 0xB2);     //Idle mode
+Write(Parameter , 0x05);   
+Write(Parameter , 0x3C);   
+Write(Parameter , 0x3C);   
+Write(Command , 0xB3);     //Partial mode
+Write(Parameter , 0x05);   
+Write(Parameter , 0x3C);   
+Write(Parameter , 0x3C);   
+Write(Parameter , 0x05);   
+Write(Parameter , 0x3C);   
+Write(Parameter , 0x3C);   
+Write(Command , 0xB4);     //Dot inversion
+Write(Parameter , 0x03);   
+Write(Command , 0xC0);     //AVDD GVDD
+Write(Parameter , 0xAB);   
+Write(Parameter , 0x0B);   
+Write(Parameter , 0x04);   
+Write(Command , 0xC1);     //VGH VGL
+Write(Parameter , 0xC5);   //C0
+Write(Command , 0xC2);     //Normal Mode
+Write(Parameter , 0x0D);   
+Write(Parameter , 0x00);   
+Write(Command , 0xC3);     //Idle
+Write(Parameter , 0x8D);   
+Write(Parameter , 0x6A);   
+Write(Command , 0xC4);     //Partial+Full
+Write(Parameter , 0x8D);   
+Write(Parameter , 0xEE);   
+Write(Command , 0xC5);     //VCOM
+Write(Parameter , 0x0F);   
+Write(Command , 0xE0);     //positive gamma
+Write(Parameter , 0x07);   
+Write(Parameter , 0x0E);   
+Write(Parameter , 0x08);   
+Write(Parameter , 0x07);   
+Write(Parameter , 0x10);   
+Write(Parameter , 0x07);   
+Write(Parameter , 0x02);   
+Write(Parameter , 0x07);   
+Write(Parameter , 0x09);   
+Write(Parameter , 0x0F);   
+Write(Parameter , 0x25);   
+Write(Parameter , 0x36);   
+Write(Parameter , 0x00);   
+Write(Parameter , 0x08);   
+Write(Parameter , 0x04);   
+Write(Parameter , 0x10);   
+Write(Command , 0xE1);     //negative gamma
+Write(Parameter , 0x0A);   
+Write(Parameter , 0x0D);   
+Write(Parameter , 0x08);   
+Write(Parameter , 0x07);   
+Write(Parameter , 0x0F);   
+Write(Parameter , 0x07);   
+Write(Parameter , 0x02);   
+Write(Parameter , 0x07);   
+Write(Parameter , 0x09);   
+Write(Parameter , 0x0F);   
+Write(Parameter , 0x25);   
+Write(Parameter , 0x35);   
+Write(Parameter , 0x00);   
+Write(Parameter , 0x09);   
+Write(Parameter , 0x04);   
+Write(Parameter , 0x10);
+   
+Write (Command  ,0xFC);    
+Write (Parameter  ,0x80);  
+  
+Write(Command , 0x3A);     
+Write(Parameter , 0x05);   
+Set_LCD_SCREEN_MODE(Sys.Flag.OLED_LEFT_RIGHT);
+Write(Command , 0x21);     //Display inversion
+Write(Command , 0x29);     //Display on
+Write(Command , 0x2A);     //Set Column Address
+Write(Parameter , 0x00);   
+Write (Parameter  ,0x1A);  //26  
+Write(Parameter , 0x00);   
+Write (Parameter  ,0x69);   //105 
+Write(Command , 0x2B);     //Set Page Address
+Write(Parameter , 0x00);   
+Write (Parameter  ,0x01);    //1
+Write(Parameter , 0x00);   
+Write (Parameter  ,0xA0);    //160
+Write(Command , 0x2C);
+
+if(Sys.Flag.OLED_LEFT_RIGHT<2)
+{
+	TFT_Clear_Color(0, 79, 0, 159, 0);
+}
+else
+{
+	TFT_Clear_Color(0, 159, 0, 79, 0);
+}
+
+#elif OLD_SCREEN==3 || OLD_SCREEN==4
+
+
+WriteComm(0xff);
+WriteData(0xa5);
+WriteComm(0x3a);
+WriteData(0x65);
+WriteComm(0x51);
+WriteData(0x14);
+WriteComm(0x53);
+WriteData(0x11);
+WriteComm(0x62);
+WriteData(0x20);
+WriteComm(0x86);
+WriteData(0x00);
+WriteComm(0x87);
+WriteData(0x1a);
+WriteComm(0x88);
+WriteData(0x11);//vcomh0
+WriteComm(0x89);
+WriteData(0x1c);//vcoml
+WriteComm(0x61);
+WriteData(0x16);
+WriteComm(0x93);
+WriteData(0x12); // 13--line inversion 12--frame inversion
+WriteComm(0x95);
+WriteData(0x10);
+WriteComm(0x96);
+WriteData(0x0e);
+WriteComm(0xb4);
+WriteData(0x60);
+WriteComm(0x91);
+WriteData(0x10);
+WriteComm(0xC1);
+WriteData(0xF1);
+WriteComm(0xC5);
+WriteData(0xF8);
+WriteComm(0xb5);
+WriteData(0x20);
+WriteComm(0xc3);
+WriteData(0x11);//ss/gs
+WriteComm(0x83);
+WriteData(0x10);
+//////////////////////gamma_set//////////////////////////////////////
+WriteComm(0x2a); // Set col address
+WriteData(0x00);
+WriteData(0x84); // Start col address
+WriteData(0x00);
+WriteData(0x84); // End col address
+WriteComm(0x2b); // Set page address
+WriteData(0x00);
+WriteData(0x00); // Start col address
+WriteData(0x00);
+WriteData(0x1f); // End col address
+WriteComm(0x2c); // Write Display Data
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x13);//VPMIDP G[0] 15/16
+WriteData(0x00);
+WriteData(0x11);//VRP1 G[1] 10
+WriteData(0x00);
+WriteData(0x16);//VRP0 G[2] 21
+WriteData(0x00);
+WriteData(0x05);//KP7 G[3] 0
+WriteData(0x00);
+WriteData(0x0d);//KP6 G[4] 1
+WriteData(0x00);
+WriteData(0x0c);//KP5 G[5] 2
+WriteData(0x00);
+WriteData(0x0d);//KP4 G[6] 6
+WriteData(0x00);
+WriteData(0x1e);//KP3 G[7] 25
+WriteData(0x00);
+WriteData(0x1b);//KP2 G[8] 29
+WriteData(0x00);
+WriteData(0x1b);//KP1 G[9] 30
+WriteData(0x00);
+WriteData(0x1f);//KP0 G[10] 31
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(0x00);
+WriteData(31-0x13);//VPMIDN G[11] 15/16
+WriteData(0x00);
+WriteData(31-0x16); //VRN0 G[13] 21
+WriteData(0x00);
+WriteData(31-0x11);//VRN1 G[12] 10
+WriteData(0x00);
+WriteData(31-0x1f);//KN0 G[21] 31
+WriteData(0x00);
+WriteData(31-0x1b);//KN1 G[20] 30
+WriteData(0x00);
+WriteData(31-0x1b);//KN2 G[19] 29
+WriteData(0x00);
+WriteData(31-0x1e);//KN3 G[18] 25
+WriteData(0x00);
+WriteData(31-0x0d);//KN4 G[17] 6
+WriteData(0x00);
+WriteData(31-0x0c);//KN5 G[16] 2
+WriteData(0X00);
+WriteData(31-0x13);//KN6 G[15] 1
+WriteData(0x00);
+WriteData(31-0x05);//KN7 G[14] 0
+WriteComm(0x2a); // Set col address
+WriteData(0x00); // Start col address
+WriteData(0x00);
+WriteData(0x00);
+WriteData(127); // End col address
+WriteComm(0x2b); // Set page address
+WriteData(0x00); // Start col address
+WriteData(0x00);
+WriteData(0x00);
+WriteData(159); //159 End col address
+WriteComm(0x83);
+WriteData(0x00);
+WriteComm(0xff);
+WriteData(0x00);
+WriteComm(0x11);
+delay_ms(5);
+
+WriteComm(0x21);
+//WriteComm(0x36);
+//WriteData(0x00);
+Set_LCD_SCREEN_MODE(Sys.Flag.OLED_LEFT_RIGHT);
+
+if(Sys.Flag.OLED_LEFT_RIGHT<2)
+{
+	TFT_Clear_Color(0, 79, 0, 159, 0);
+}
+else
+{
+	TFT_Clear_Color(0, 159, 0, 79, 0);
+}
+
+WriteComm(0x29);
+
+#else 
+WriteCom(0x11); 
+delay_ms(5);
+
+WriteCom(0xB1);     //------------------------------------ST7735S Frame Rate-----------------------------------------//
+WriteData(0x05);   
+WriteData(0x3C);   
+WriteData(0x3C);   
+
+WriteCom(0xB2);     
+WriteData(0x05);   
+WriteData(0x3C);   
+WriteData(0x3C);   
+
+WriteCom(0xB3);     
+WriteData(0x05);   
+WriteData(0x3C);   
+WriteData(0x3C);   
+WriteData(0x05);   
+WriteData(0x3C);   
+WriteData(0x3C);   //------------------------------------End ST7735S Frame Rate-----------------------------------------//
+
+WriteCom(0xB4);     //Dot inversion
+WriteData(0x03);   
+
+WriteCom(0xC0);     //------------------------------------ST7735S Power Sequence-----------------------------------------//
+WriteData(0x0E);   
+WriteData(0x0E);   
+WriteData(0x04);   
+
+WriteCom(0xC1);     
+WriteData(0xC0);   
+
+WriteCom(0xC2);     
+WriteData(0x0D);   
+WriteData(0x00);   
+
+WriteCom(0xC3);     
+WriteData(0x8D);   
+WriteData(0x2A);   
+
+WriteCom(0xC4);     
+WriteData(0x8D);   
+WriteData(0xEE);   //---------------------------------End ST7735S Power Sequence-------------------------------------//
+
+WriteCom(0xC5);     //VCOM
+WriteData(0x04);   
+
+//WriteCom(0x36);     //MX, MY, RGB mode
+//WriteData(0x08);   
+Set_LCD_SCREEN_MODE(Sys.Flag.OLED_LEFT_RIGHT);
+
+
+WriteCom(0x3a);  
+WriteData(0x05);  
+
+
+WriteCom(0xE0);     
+WriteData(0x05);   
+WriteData(0x1A);   
+WriteData(0x0B);   
+WriteData(0x15);   
+WriteData(0x3D);   
+WriteData(0x38);   
+WriteData(0x2E);   
+WriteData(0x30);   
+WriteData(0x2D);   
+WriteData(0x28);   
+WriteData(0x30);   
+WriteData(0x3B);   
+WriteData(0x00);   
+WriteData(0x01);   
+WriteData(0x02);   
+WriteData(0x10);   
+
+WriteCom(0xE1);     
+WriteData(0x05);   
+WriteData(0x1A);   
+WriteData(0x0B);   
+WriteData(0x15);   
+WriteData(0x36);   
+WriteData(0x2E);   
+WriteData(0x28);   
+WriteData(0x2B);   
+WriteData(0x2B);   
+WriteData(0x28);   
+WriteData(0x30);   
+WriteData(0x3B);   
+WriteData(0x00);   
+WriteData(0x01);   
+WriteData(0x02);   
+WriteData(0x10);   
+
+if(Sys.Flag.OLED_LEFT_RIGHT<2)
+{
+	TFT_Clear_Color(0, 79, 0, 159, 0);
+}
+else
+{
+	TFT_Clear_Color(0, 159, 0, 79, 0);
+}
+
+WriteCom(0x29);
+
+#endif
+
+}
+
+
+
+//*********LCD-set-window-size***********
+void windows_set(uint xxs,uint xxe,uint yys,uint yye)
+{
+	uint xs,xe,ys,ye;
+
+	xs=xxs;
+	xe=xxe;
+	ys=yys;
+	ye=yye;
+	
+	if(Sys.Flag.OLED_LEFT_RIGHT<2)
+	{
+	#if OLD_SCREEN==0 || OLD_SCREEN==1 || OLD_SCREEN==2 || OLD_SCREEN==4
+		xs+=24;
+		xe+=24;
+	#elif OLD_SCREEN==3
+		xs+=26;
+		xe+=26;
+
+		ys+=1;
+		ye+=1;
+	#endif
+	}
+	else
+	{
+	#if OLD_SCREEN==0 || OLD_SCREEN==1 || OLD_SCREEN==2 || OLD_SCREEN==4
+		ys+=24;
+		ye+=24;
+	#elif OLD_SCREEN==3
+		ys+=26;
+		ye+=26;
+
+		xs+=1;
+		xe+=1;
+	#endif
+	}
+
+
+
+	LCD_WR_REG(0x2A);
+	LCD_WR_DATA(xs>>8);
+	LCD_WR_DATA(0x00FF&xs);
+	LCD_WR_DATA(xe>>8);
+	LCD_WR_DATA(0x00FF&xe);
+	
+	LCD_WR_REG(0x2B);
+	LCD_WR_DATA(ys>>8);
+	LCD_WR_DATA(0x00FF&ys);
+	LCD_WR_DATA(ye>>8);
+	LCD_WR_DATA(0x00FF&ye);
+	
+	LCD_WR_REG(0x2C);
+}
+
+
+#if OLD_SCREEN==1
+void Set_LCD_SCREEN_MODE(uchar mode)
+{
+	LCD_WR_REG(0x36);     
+	if(mode==0)
+	{
+		LCD_WR_DATA(0xC8); 
+	}
+	else if(mode==1)
+	{
+		LCD_WR_DATA(0x08); 
+	}
+	else if(mode==2)
+	{
+		LCD_WR_DATA(0x08|0x1<<6|0x1<<5);
+	}
+	else
+	{
+		LCD_WR_DATA(0x08|0x2<<6|0x1<<5);
+	}
+}
+
+#elif OLD_SCREEN==2  
+void Set_LCD_SCREEN_MODE(uchar mode)
+{
+	Write(Command , 0x36);     //BGR
+	if(mode==0)
+	{
+		Write (Parameter  ,0xC8);   //(0xC0或者0x00)|(0x08或者0x00)
+	}
+	else if(mode==1)
+	{
+		Write (Parameter  ,0x08);   //(0xC0或者0x00)|(0x08或者0x00)
+	}
+	else if(mode==2)
+	{
+		Write (Parameter  ,0x08|0x1<<6|0x1<<5);
+	}
+	else
+	{
+		Write (Parameter  ,0x08|0x2<<6|0x1<<5);
+	}
+}
+#elif OLD_SCREEN==3 || OLD_SCREEN==4  
+void Set_LCD_SCREEN_MODE(uchar mode)
+{
+	WriteComm(0x36);
+	if(mode==0)
+	{
+		WriteData(0xC0);
+	}
+	else if(mode==1)
+	{
+		WriteData(0x00);
+	}
+	else if(mode==2)
+	{
+		WriteData(0x00|0x1<<6|0x1<<5);
+	}
+	else
+	{
+		WriteData(0x00|0x2<<6|0x1<<5);
+	}
+}
+
+#else
+void Set_LCD_SCREEN_MODE(uchar mode)
+{
+	Write(Command , 0x36);	   //BGR
+	if(mode==0)
+	{
+		Write (Parameter  ,0x08);	//(0xC0或者0x00)|(0x08或者0x00)
+	}
+	else if(mode==1)
+	{
+		Write (Parameter  ,0xC8);	//(0xC0或者0x00)|(0x08或者0x00)
+	}
+	else if(mode==2)
+	{
+		Write (Parameter  ,0x08|0x2<<6|0x1<<5);
+	}
+	else
+	{
+		Write (Parameter  ,0x08|0x1<<6|0x1<<5);
+	}
+}
+
+#endif
